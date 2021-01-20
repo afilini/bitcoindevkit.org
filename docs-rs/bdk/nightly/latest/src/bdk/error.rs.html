@@ -255,7 +255,12 @@
     <span class="doccomment">/// Output created is under the dust limit, 546 satoshis</span>
     <span class="ident">OutputBelowDustLimit</span>(<span class="ident">usize</span>),
     <span class="doccomment">/// Wallet&#39;s UTXO set is not enough to cover recipient&#39;s requested plus fee</span>
-    <span class="ident">InsufficientFunds</span>,
+    <span class="ident">InsufficientFunds</span> {
+        <span class="doccomment">/// Sats needed for some transaction</span>
+        <span class="ident">needed</span>: <span class="ident">u64</span>,
+        <span class="doccomment">/// Sats available for spending</span>
+        <span class="ident">available</span>: <span class="ident">u64</span>,
+    },
     <span class="doccomment">/// Branch and bound coin selection possible attempts with sufficiently big UTXO set could grow</span>
     <span class="doccomment">/// exponentially, thus a limit is set, and when hit, this error is thrown</span>
     <span class="ident">BnBTotalTriesExceeded</span>,
@@ -297,11 +302,6 @@
     <span class="doccomment">/// Signing error</span>
     <span class="ident">Signer</span>(<span class="kw">crate</span>::<span class="ident">wallet</span>::<span class="ident">signer</span>::<span class="ident">SignerError</span>),
 
-    <span class="comment">// Blockchain interface errors</span>
-    <span class="doccomment">/// Thrown when trying to call a method that requires a network connection, [`Wallet::sync`](crate::Wallet::sync) and [`Wallet::broadcast`](crate::Wallet::broadcast)</span>
-    <span class="doccomment">/// This error is thrown when creating the Client for the first time, while recovery attempts are tried</span>
-    <span class="doccomment">/// during the sync</span>
-    <span class="ident">OfflineClient</span>,
     <span class="doccomment">/// Progress value must be between `0.0` (included) and `100.0` (included)</span>
     <span class="ident">InvalidProgressValue</span>(<span class="ident">f32</span>),
     <span class="doccomment">/// Progress update error (maybe the channel has been closed)</span>
@@ -406,9 +406,10 @@
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">other</span>: <span class="kw">crate</span>::<span class="ident">blockchain</span>::<span class="ident">compact_filters</span>::<span class="ident">CompactFiltersError</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="kw">match</span> <span class="ident">other</span> {
             <span class="kw">crate</span>::<span class="ident">blockchain</span>::<span class="ident">compact_filters</span>::<span class="ident">CompactFiltersError</span>::<span class="ident">Global</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="kw-2">*</span><span class="ident">e</span>,
-            <span class="ident">err</span> @ <span class="kw">_</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Error</span>::<span class="ident">CompactFilters</span>(<span class="ident">err</span>),
+            <span class="ident">err</span> <span class="op">=</span><span class="op">&gt;</span> <span class="ident">Error</span>::<span class="ident">CompactFilters</span>(<span class="ident">err</span>),
         }
     }
 }
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "bdk";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bdk"></div>
+    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

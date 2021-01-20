@@ -4,37 +4,37 @@
   
   <url>
     <loc>https://bitcoindevkit.org/blog/</loc>
-    <lastmod>2020-12-21T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://bitcoindevkit.org/repl/installation/</loc>
+    <loc>https://bitcoindevkit.org/bdk-cli/installation/</loc>
     <lastmod>2020-04-28T17:11:29+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://bitcoindevkit.org/repl/concept/</loc>
+    <loc>https://bitcoindevkit.org/bdk-cli/</loc>
+    <lastmod>2020-04-28T17:03:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bitcoindevkit.org/bdk-cli/concept/</loc>
     <lastmod>2020-04-28T17:38:20+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://bitcoindevkit.org/repl/interface/</loc>
+    <loc>https://bitcoindevkit.org/bdk-cli/interface/</loc>
     <lastmod>2020-04-28T18:20:28+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://bitcoindevkit.org/repl/regtest/</loc>
+    <loc>https://bitcoindevkit.org/bdk-cli/regtest/</loc>
     <lastmod>2020-04-29T00:19:34+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://bitcoindevkit.org/repl/compiler/</loc>
+    <loc>https://bitcoindevkit.org/bdk-cli/compiler/</loc>
     <lastmod>2020-04-29T12:06:50+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://bitcoindevkit.org/repl/</loc>
-    <lastmod>2020-04-28T17:03:00+02:00</lastmod>
   </url>
   
   <url>
@@ -43,7 +43,7 @@
   </url>
   
   <url>
-    <loc>https://bitcoindevkit.org/repl/playground/</loc>
+    <loc>https://bitcoindevkit.org/bdk-cli/playground/</loc>
     <lastmod>2020-05-08T15:42:22+02:00</lastmod>
   </url>
   
@@ -54,31 +54,36 @@
   
   <url>
     <loc>https://bitcoindevkit.org/blog/author/alekos-filini/</loc>
-    <lastmod>2020-12-21T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://bitcoindevkit.org/author/</loc>
-    <lastmod>2020-12-21T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://bitcoindevkit.org/blog/tags/release/</loc>
-    <lastmod>2020-12-21T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://bitcoindevkit.org/blog/2020/12/release-v0.2.0/</loc>
-    <lastmod>2020-12-21T00:00:00+00:00</lastmod>
+    <loc>https://bitcoindevkit.org/blog/2021/01/release-v0.3.0/</loc>
+    <lastmod>2021-01-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://bitcoindevkit.org/blog/tags/rust/</loc>
-    <lastmod>2020-12-21T00:00:00+00:00</lastmod>
+    <lastmod>2021-01-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://bitcoindevkit.org/tags/</loc>
+    <lastmod>2021-01-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://bitcoindevkit.org/blog/2020/12/release-v0.2.0/</loc>
     <lastmod>2020-12-21T00:00:00+00:00</lastmod>
   </url>
   
