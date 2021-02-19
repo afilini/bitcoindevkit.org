@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.79.0" />
-    <meta name="description" content="The Bitcoin Dev Kit project aims to build a collection of tools and libraries that are designed to be a solid foundation for Bitcoin wallets.">
+    <meta name="description" content="Announcing the v0.4.0 release of BDK">
 <meta name="author" content="Alekos Filini - @afilini">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
 
-    <title>Compiler :: Bitcoin Dev Kit</title>
+    <title>Release v0.4.0 :: Bitcoin Dev Kit</title>
 
     
     <link href="/css/nucleus.css?1613737834" rel="stylesheet">
@@ -34,19 +34,19 @@
     
     <link href="/css/style.css?1613737834" rel="stylesheet"><link href="/css/jsonview.css?1613737834" rel="stylesheet"><link href="/css/blog.css?1613737834" rel="stylesheet">
 
-    <meta property="og:title" content="Compiler" />
-<meta property="og:description" content="Introduction If you want to play around with more complicated spending policies, you&rsquo;ll start to find it harder and harder to manually create the descriptors. This is where the miniscript compiler comes in! The bdk library includes a very simple compiler that can produce a descriptor given a spending policy. The syntax used to encode the spending policy is very well described in this page, specifically in the &ldquo;Policy to Miniscript compiler&rdquo;." />
+    <meta property="og:title" content="Release v0.4.0" />
+<meta property="og:description" content="Announcing the v0.4.0 release of BDK" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://bitcoindevkit.org/bdk-cli/compiler/" />
+<meta property="og:url" content="https://bitcoindevkit.org/blog/2021/02/release-v0.4.0/" />
 <meta property="og:image" content="https://bitcoindevkit.org/images/logo-wide.jpg"/>
-<meta property="article:published_time" content="2020-04-29T12:06:50+02:00" />
-<meta property="article:modified_time" content="2020-04-29T12:06:50+02:00" />
+<meta property="article:published_time" content="2021-02-17T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-02-17T00:00:00+00:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://bitcoindevkit.org/images/logo-wide.jpg"/>
 
-<meta name="twitter:title" content="Compiler"/>
-<meta name="twitter:description" content="Introduction If you want to play around with more complicated spending policies, you&rsquo;ll start to find it harder and harder to manually create the descriptors. This is where the miniscript compiler comes in! The bdk library includes a very simple compiler that can produce a descriptor given a spending policy. The syntax used to encode the spending policy is very well described in this page, specifically in the &ldquo;Policy to Miniscript compiler&rdquo;."/>
+<meta name="twitter:title" content="Release v0.4.0"/>
+<meta name="twitter:description" content="Announcing the v0.4.0 release of BDK"/>
 
 
     <script src="/js/jquery-3.3.1.min.js?1613737834"></script>
@@ -63,7 +63,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/bdk-cli/compiler/">
+  <body class="" data-url="/blog/2021/02/release-v0.4.0/">
     
 
 
@@ -120,7 +120,7 @@
   
     
     <li data-nav-id="/blog/" title="Blog" class="dd-item
-        
+        parent
         
         
         ">
@@ -144,7 +144,7 @@
   
     
     <li data-nav-id="/bdk-cli/" title="BDK CLI" class="dd-item
-        parent
+        
         
         
         ">
@@ -254,7 +254,7 @@
  
   
     
-      <li data-nav-id="/bdk-cli/compiler/" title="Compiler" class="dd-item active">
+      <li data-nav-id="/bdk-cli/compiler/" title="Compiler" class="dd-item ">
         <a href="/bdk-cli/compiler/">
         <b>5. </b>Compiler
         
@@ -407,7 +407,7 @@
                   
                   
                   <div id="top-github-link">
-                    <a class="github-link" title='Edit this page' href="https://github.com/bitcoindevkit/bitcoindevkit.org/edit/master/content/bdk-cli/compiler.md" target="blank">
+                    <a class="github-link" title='Edit this page' href="https://github.com/bitcoindevkit/bitcoindevkit.org/edit/master/content/blog/2021/release-0.4.0.md" target="blank">
                       <i class="fas fa-code-branch"></i>
                       <span id="top-github-link-text">Edit this page</span>
                     </a>
@@ -427,7 +427,7 @@
                   <span class="links">
                  
                  
-                   Compiler
+                   Release v0.4.0
                  
                   </span>
                 </div>
@@ -436,15 +436,14 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction">Introduction</a></li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#example">Example</a></li>
-    <li><a href="#troubleshooting">Troubleshooting</a>
+    <li><a href="#whats-new-in-v040">What&rsquo;s new in v0.4.0</a>
       <ul>
-        <li></li>
+        <li><a href="#a-new-api-to-build-transaction">A new API to build transaction</a></li>
+        <li><a href="#upgraded-dependencies">Upgraded dependencies</a></li>
+        <li><a href="#compact-filters-example">Compact Filters example</a></li>
       </ul>
     </li>
+    <li><a href="#contributors">Contributors</a></li>
   </ul>
 </nav>
     </div>
@@ -458,141 +457,99 @@
         
 
 
+<div class="tags">
+
+  <a class="tag-link" href="/blog/tags/rust">rust</a>
+
+  <a class="tag-link" href="/blog/tags/release">release</a>
+
+</div>
+
 
         </div>
         
         <div id="body-inner">
           
             
-            <h1>
-              
-              Compiler
-            </h1>
+            <h1 class="blog-title">Release v0.4.0 </h1>
+                
+                    <span class="blog-author">By <a href="/blog/author/alekos-filini">Alekos Filini</a></span>
+                    <hr>
+                
             
           
 
         
 
 
-<h2 id="introduction">Introduction</h2>
-<p>If you want to play around with more complicated spending policies, you&rsquo;ll start to find it harder and harder to manually create the descriptors. This is where the miniscript compiler comes in! The <code>bdk</code> library
-includes a very simple compiler that can produce a descriptor given a spending policy. The syntax used to encode the spending policy is very well described <a href="http://bitcoin.sipa.be/miniscript/">in this page</a>,
-specifically in the &ldquo;Policy to Miniscript compiler&rdquo;. The compiler included in BDK does basically the same job, but produces descriptors for <code>rust-miniscript</code> that have some minor differences from
-the ones made by the C++ implementation used in that website.</p>
-<h2 id="installation">Installation</h2>
-<p>To install the miniscript compiler run the following command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cargo install --git https://github.com/bitcoindevkit/bdk --features<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;compiler&#34;</span> --example miniscriptc
-</code></pre></div><p>Once the command is done, you should have a <code>miniscriptc</code> command available. You can check if that&rsquo;s the case by running <code>miniscriptc --help</code>.</p>
-<h2 id="usage">Usage</h2>
-<p>In this case the interface is very simple: it accepts two arguments called &ldquo;POLICY&rdquo; and &ldquo;TYPE&rdquo;, in this order. The first one, as the name implies, sets the spending policy to compile. The latter defines the type
-of address that should be used to encapsulate the produced script, like a P2SH, P2WSH, etc.</p>
-<p>Optionally, the <code>--parsed_policy</code> flag can be enabled and it will make the compiler print the JSON &ldquo;human-readable&rdquo; version of the spending policy, as described in the <a href="/bdk-cli/interface/#policies"><code>policies subcommand</code></a> of the CLI.</p>
-<p>The <code>--network</code> flag can be used to change the network encoding of the address shown.</p>
+<p>A new release of BDK is out: the <a href="https://crates.io/crates/bdk/0.4.0"><code>v0.4.0</code></a> release brings updated dependencies, more sanity checks and an overhauled API to build transactions.</p>
+<p>You can find the full <a href="https://github.com/bitcoindevkit/bdk/blob/75669049268bbc294564f8c6e0528e07a546258f/CHANGELOG.md#v030---v020">v0.4.0 changelog</a> on GitHub.</p>
+<h2 id="whats-new-in-v040">What&rsquo;s new in v0.4.0</h2>
+<p>Below are some highlights of the new improved APIs coming with this release:</p>
+<h3 id="a-new-api-to-build-transaction">A new API to build transaction</h3>
+<p>The star of this release is the new API designed and implemented by <a href="https://github.com/llfourn">@llfourn</a> that brings much more flexibility to the way we create transactions: originally the process of making a transaction involved the creation of a <code>TxBuilder</code> which was used
+to configure <em>how</em> the wallet should build the transaction. Things like which outputs to create, what <code>nLockTime</code> to use, which UTXOs to spend, and much more.</p>
+<p>Once fully configured, this builder was then given to the <code>Wallet</code> itself in a <code>Wallet::create_tx()</code> or <code>Wallet::bump_fee()</code> call: the <code>Wallet</code> would try to follow the <em>instructions</em> given by the builder, but in
+case of conflicting or straight-up wrong options it would have to fail and force the user to start over.</p>
+<p>The new API maintains the concept of a <em>builder</em>, but it changes the way it&rsquo;s created so that it always contains a reference to the main <code>Wallet</code> instance. What this means is that most checks can now be performed right
+when something is added to the builder, not at the end, allowing the user to recover from errors instead of having to start over.</p>
+<p>This also opens the door to even more improvements and additions, such as a way to <a href="https://github.com/bitcoindevkit/bdk/pull/279">spend foreign utxos</a> in a transaction, or even a way to <a href="https://github.com/bitcoindevkit/bdk/issues/280">bump the fees of multiple transactions at once</a> by batching them together, which
+saves a bit of space and money.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">let</span> send_to <span style="color:#f92672">=</span> wallet.get_new_address()<span style="color:#f92672">?</span>;
+<span style="color:#66d9ef">let</span> (psbt, details) <span style="color:#f92672">=</span> {
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> builder <span style="color:#f92672">=</span> wallet.build_tx();
+    builder
+        .add_recipient(send_to.script_pubkey(), <span style="color:#ae81ff">50_000</span>)
+        .enable_rbf()
+        .do_not_spend_change()
+        .fee_rate(FeeRate::from_sat_per_vb(<span style="color:#ae81ff">5.0</span>));
+    builder.finish()<span style="color:#f92672">?</span>
+};
+</code></pre></div><h3 id="upgraded-dependencies">Upgraded dependencies</h3>
+<p>This release also brings many updates to our dependencies, including:</p>
+<ul>
+<li><code>bitcoin</code> to <code>v0.26</code></li>
+<li><code>miniscript</code> to <code>v5.1</code></li>
+<li><code>electrum-client</code> to <code>v0.6</code></li>
+<li><code>tokio</code> to <code>v1</code></li>
+<li><code>reqwest</code> to <code>v0.11</code></li>
+<li><code>cc</code> to <code>&gt;= v1.0.64</code></li>
+</ul>
+<h3 id="compact-filters-example">Compact Filters example</h3>
+<p>Thanks to the upgrade to <code>bitcoin v0.26</code> all the issues related to new networking messages in the P2P Bitcoin network have been fixed, which means that we can finally use our (experimental) compact filters <code>Blockchain</code> with
+standard Bitcoin Core 0.21 full nodes.</p>
+<p>The following example has also been added to the repository and can be run with <code>cargo run --features=compact_filters --example compact_filters_balance</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#e6db74">/// This will return wallet balance using compact filters
+</span><span style="color:#e6db74">/// Requires a synced local bitcoin node 0.21 running on testnet with blockfilterindex=1 and peerblockfilters=1
+</span><span style="color:#e6db74"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() -&gt; Result<span style="color:#f92672">&lt;</span>(), CompactFiltersError<span style="color:#f92672">&gt;</span> {
+    env_logger::init();
+    info<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;start&#34;</span>);
 
-<div class="notices tip" ><p>Keep in mind that since the compiler loads and interprets the descriptor, all the public keys specified in the policy must be valid public keys. This differs from the web tool linked above that also accepts
-placeholders too. As described in the previous sections of this guide, the keys can be either <code>xpub</code>/<code>xprv</code> with or without metadata and a derivation path, WIF keys or raw hex public keys.</p>
-</div>
+    <span style="color:#66d9ef">let</span> num_threads <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+    <span style="color:#66d9ef">let</span> mempool <span style="color:#f92672">=</span> Arc::new(Mempool::default());
+    <span style="color:#66d9ef">let</span> peers <span style="color:#f92672">=</span> (<span style="color:#ae81ff">0</span>..num_threads)
+        .map(<span style="color:#f92672">|</span>_<span style="color:#f92672">|</span> Peer::connect(<span style="color:#e6db74">&#34;localhost:18333&#34;</span>, Arc::clone(<span style="color:#f92672">&amp;</span>mempool), Network::Testnet))
+        .collect::<span style="color:#f92672">&lt;</span>Result<span style="color:#f92672">&lt;</span>_, _<span style="color:#f92672">&gt;&gt;</span>()<span style="color:#f92672">?</span>;
+    <span style="color:#66d9ef">let</span> blockchain <span style="color:#f92672">=</span> CompactFiltersBlockchain::new(peers, <span style="color:#e6db74">&#34;./wallet-filters&#34;</span>, Some(<span style="color:#ae81ff">500_000</span>))<span style="color:#f92672">?</span>;
+    info<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;done {:?}&#34;</span>, blockchain);
+    <span style="color:#66d9ef">let</span> descriptor <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;wpkh(tpubD6NzVbkrYhZ4X2yy78HWrr1M9NT8dKeWfzNiQqDdMqqa9UmmGztGGz6TaLFGsLfdft5iu32gxq1T4eMNxExNNWzVCpf9Y6JZi5TnqoC9wJq/*)&#34;</span>;
 
-<h2 id="example">Example</h2>
-<p>Let&rsquo;s take this policy for example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">miniscriptc --parsed_policy and<span style="color:#f92672">(</span>pk<span style="color:#f92672">(</span>cSQPHDBwXGjVzWRqAHm6zfvQhaTuj1f2bFH58h55ghbjtFwvmeXR<span style="color:#f92672">)</span>,or<span style="color:#f92672">(</span>50@pk<span style="color:#f92672">(</span>02e96fe52ef0e22d2f131dd425ce1893073a3c6ad20e8cac36726393dfb4856a4c<span style="color:#f92672">)</span>,older<span style="color:#f92672">(</span>1000<span style="color:#f92672">))))</span> sh-wsh
-</code></pre></div><p>The compiler should print something like:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">[2020-04-29T10:42:05Z INFO  miniscriptc] Compiling policy: and(pk(cSQPHDBwXGjVzWRqAHm6zfvQhaTuj1f2bFH58h55ghbjtFwvmeXR),or(50@pk(02e96fe52ef0e22d2f131dd425ce1893073a3c6ad20e8cac36726393dfb4856a4c),older(1000)))
-[2020-04-29T10:42:05Z INFO  miniscriptc] ... Descriptor: sh(wsh(and_v(or_c(c:pk(02e96fe52ef0e22d2f131dd425ce1893073a3c6ad20e8cac36726393dfb4856a4c),v:older(1000)),c:pk(cSQPHDBwXGjVzWRqAHm6zfvQhaTuj1f2bFH58h55ghbjtFwvmeXR))))
-[2020-04-29T10:42:05Z INFO  miniscriptc] ... First address: 2MsqrJuZewY3o3ADAy1Uhi5vsBqTANjH3Cf
-</code></pre></div><p>JSON policy:</p>
-
-<div class="json" data-json='{
-&ldquo;type&rdquo;:&ldquo;THRESH&rdquo;,
-&ldquo;items&rdquo;:[
-{
-&ldquo;type&rdquo;:&ldquo;THRESH&rdquo;,
-&ldquo;items&rdquo;:[
-{
-&ldquo;type&rdquo;:&ldquo;SIGNATURE&rdquo;,
-&ldquo;pubkey&rdquo;:&ldquo;02e96fe52ef0e22d2f131dd425ce1893073a3c6ad20e8cac36726393dfb4856a4c&rdquo;,
-&ldquo;satisfaction&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;NONE&rdquo;
-},
-&ldquo;contribution&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;NONE&rdquo;
+    <span style="color:#66d9ef">let</span> database <span style="color:#f92672">=</span> MemoryDatabase::default();
+    <span style="color:#66d9ef">let</span> wallet <span style="color:#f92672">=</span>
+        Arc::new(Wallet::new(descriptor, None, Network::Testnet, database, blockchain).unwrap());
+    wallet.sync(noop_progress(), None).unwrap();
+    info<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;balance: {}&#34;</span>, wallet.get_balance()<span style="color:#f92672">?</span>);
+    Ok(())
 }
-},
-{
-&ldquo;type&rdquo;:&ldquo;RELATIVETIMELOCK&rdquo;,
-&ldquo;value&rdquo;:1000,
-&ldquo;satisfaction&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;NONE&rdquo;
-},
-&ldquo;contribution&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;COMPLETE&rdquo;,
-&ldquo;condition&rdquo;:{
-&ldquo;csv&rdquo;:1000
-}
-}
-}
-],
-&ldquo;threshold&rdquo;:1,
-&ldquo;satisfaction&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;NONE&rdquo;
-},
-&ldquo;contribution&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;PARTIALCOMPLETE&rdquo;,
-&ldquo;n&rdquo;:2,
-&ldquo;m&rdquo;:1,
-&ldquo;items&rdquo;:[
-1
-],
-&ldquo;conditions&rdquo;:{
-&ldquo;[1]&quot;:[
-{
-&ldquo;csv&rdquo;:1000
-}
-]
-}
-}
-},
-{
-&ldquo;type&rdquo;:&ldquo;SIGNATURE&rdquo;,
-&ldquo;pubkey&rdquo;:&ldquo;02e96fe52ef0e22d2f131dd425ce1893073a3c6ad20e8cac36726393dfb4856a4c&rdquo;,
-&ldquo;satisfaction&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;NONE&rdquo;
-},
-&ldquo;contribution&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;COMPLETE&rdquo;,
-&ldquo;condition&rdquo;:{
-    }
-  }
-}
-
-],
-&ldquo;threshold&rdquo;:2,
-&ldquo;satisfaction&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;NONE&rdquo;
-},
-&ldquo;contribution&rdquo;:{
-&ldquo;type&rdquo;:&ldquo;PARTIALCOMPLETE&rdquo;,
-&ldquo;n&rdquo;:2,
-&ldquo;m&rdquo;:2,
-&ldquo;items&rdquo;:[
-0,
-1
-],
-&ldquo;conditions&rdquo;:{
-&ldquo;[0, 1]&quot;:[
-{
-&ldquo;csv&rdquo;:1000
-}
-]
-}
-}
-}
-'></div>
-
-<h2 id="troubleshooting">Troubleshooting</h2>
-<h4 id="nothing-is-printed">Nothing is printed</h4>
-<p>This might mean that you have a <code>RUST_LOG</code> variable set to a value that suppresses the compiler&rsquo;s log. You can try adding <code>miniscriptc=info</code> to your <code>RUST_LOG</code> value and see if that works, or open a new clean
-shell.</p>
+</code></pre></div><h2 id="contributors">Contributors</h2>
+<p>A huge thanks to everybody who contributed to this new release with suggestions, pull requests and bug reports.</p>
+<h1 id="todo-update-numbers-after-release">TODO: update numbers after release</h1>
+<h1 id="todo-update-changelog-url">TODO: update changelog URL</h1>
+<p>Since the <code>v0.3.0</code> release around a month ago, we&rsquo;ve had <code>59</code> new commits made by <code>8</code> different contributors for a total of <code>2462</code> additions and <code>1988</code> deletions. Here&rsquo;s the <a href="https://github.com/bitcoindevkit/bdk/compare/v0.3.0...v0.4.0">full diff</a>.</p>
+<p>A special thanks to the new contributor for this release:</p>
+<ul>
+<li><a href="https://github.com/luckysori">@luckysori</a> - Lucas Soriano</li>
+</ul>
 
 
 <footer class="footline">
@@ -602,6 +559,17 @@ shell.</p>
         
         </div>
         
+
+<script src="https://utteranc.es/client.js"
+        repo="bitcoindevkit/blog-comments"
+        issue-term="pathname"
+        label="blog-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
 
       </div>
 
@@ -630,8 +598,6 @@ shell.</p>
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -689,20 +655,6 @@ shell.</p>
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
                         
                         
                     
@@ -713,9 +665,6 @@ shell.</p>
                     
                     
 
-                    
-            
-        
                     
                         
             
@@ -770,7 +719,6 @@ shell.</p>
             
                 
                     
-                    
                 
                 
 
@@ -787,8 +735,21 @@ shell.</p>
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
