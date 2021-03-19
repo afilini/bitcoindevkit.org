@@ -6,11 +6,11 @@
     <description>Recent content in Tags on Bitcoin Dev Kit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://bitcoindevkit.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://bitcoindevkit.org/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>release</title>
       <link>https://bitcoindevkit.org/blog/tags/release/</link>
-      <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://bitcoindevkit.org/blog/tags/release/</guid>
       <description></description>
@@ -19,9 +19,27 @@
     <item>
       <title>rust</title>
       <link>https://bitcoindevkit.org/blog/tags/rust/</link>
-      <pubDate>Wed, 17 Feb 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 18 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>https://bitcoindevkit.org/blog/tags/rust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>descriptor</title>
+      <link>https://bitcoindevkit.org/blog/tags/descriptor/</link>
+      <pubDate>Tue, 23 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://bitcoindevkit.org/blog/tags/descriptor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>guide</title>
+      <link>https://bitcoindevkit.org/blog/tags/guide/</link>
+      <pubDate>Tue, 23 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://bitcoindevkit.org/blog/tags/guide/</guid>
       <description></description>
     </item>
     
@@ -49,24 +67,6 @@
       <pubDate>Fri, 18 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://bitcoindevkit.org/blog/tags/getting-started/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>descriptor</title>
-      <link>https://bitcoindevkit.org/blog/tags/descriptor/</link>
-      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://bitcoindevkit.org/blog/tags/descriptor/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>guide</title>
-      <link>https://bitcoindevkit.org/blog/tags/guide/</link>
-      <pubDate>Wed, 18 Nov 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://bitcoindevkit.org/blog/tags/guide/</guid>
       <description></description>
     </item>
     
