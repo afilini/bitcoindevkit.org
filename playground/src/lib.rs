@@ -11,8 +11,7 @@ use log::{debug, info};
 use serde::Deserialize;
 
 use bdk_cli::bdk;
-use bdk_cli::structopt::StructOpt;
-use bdk_cli::WalletSubCommand;
+use bdk_cli::{KeySubCommand, OfflineWalletSubCommand, OnlineWalletSubCommand, WalletOpts};
 
 use bdk::bitcoin;
 use bdk::blockchain::EsploraBlockchain;
@@ -23,8 +22,13 @@ use bdk::*;
 
 use bitcoin::*;
 
+use miniscript::descriptor::{Sh, Wsh};
 use miniscript::policy::Concrete;
 use miniscript::Descriptor;
+use miniscript::TranslatePk;
+
+use clap::AppSettings;
+use structopt::StructOpt;
 
 mod utils;
 
@@ -39,10 +43,21 @@ pub fn init() {
     info!("Initialization completed");
 }
 
+#[derive(Debug, StructOpt, Clone, PartialEq)]
+#[structopt(name = "", setting = AppSettings::NoBinaryName)]
+pub enum WalletCommand {
+    #[structopt(flatten)]
+    OnlineWalletSubCommand(OnlineWalletSubCommand),
+    #[structopt(flatten)]
+    OfflineWalletSubCommand(OfflineWalletSubCommand),
+    #[structopt(flatten)]
+    KeySubCommand(KeySubCommand),
+}
+
 #[wasm_bindgen]
 pub struct WalletWrapper {
-    _change_descriptor: Option<String>,
     wallet: Rc<Wallet<EsploraBlockchain, MemoryDatabase>>,
+    wallet_opts: Rc<WalletOpts>,
 }
 
 #[wasm_bindgen]
@@ -61,7 +76,7 @@ impl WalletWrapper {
 
         debug!("descriptors: {:?} {:?}", descriptor, change_descriptor);
 
-        let blockchain = EsploraBlockchain::new(&esplora, None);
+        let blockchain = EsploraBlockchain::new(&esplora, 20);
         let wallet = Wallet::new(
             descriptor.as_str(),
             change_descriptor.as_ref().map(|x| x.as_str()),
@@ -73,22 +88,42 @@ impl WalletWrapper {
         .map_err(|e| format!("{:?}", e))?;
 
         Ok(WalletWrapper {
-            _change_descriptor: change_descriptor,
             wallet: Rc::new(wallet),
+            wallet_opts: Rc::new(WalletOpts {
+                wallet: "default".into(),
+                verbose: true,
+                descriptor,
+                change_descriptor,
+            }),
         })
     }
 
     #[wasm_bindgen]
     pub fn run(&self, line: String) -> Promise {
         let wallet = Rc::clone(&self.wallet);
+        let wallet_opts = Rc::clone(&self.wallet_opts);
 
         future_to_promise(async move {
             let subcommand =
-                WalletSubCommand::from_iter_safe(vec![""].into_iter().chain(line.split(" ")))
-                    .map_err(|e| e.to_string())?;
+                WalletCommand::from_iter_safe(line.split(" ")).map_err(|e| e.to_string())?;
 
-            let res = bdk_cli::handle_wallet_subcommand(&wallet, subcommand)
-                .await
+            let res = match subcommand {
+                WalletCommand::OnlineWalletSubCommand(online_subcommand) => {
+                    bdk_cli::handle_online_wallet_subcommand(&wallet, online_subcommand).await
+                }
+                WalletCommand::OfflineWalletSubCommand(offline_subcommand) => {
+                    bdk_cli::handle_offline_wallet_subcommand(
+                        &wallet,
+                        &wallet_opts,
+                        offline_subcommand,
+                    )
+                }
+                WalletCommand::KeySubCommand(key_subcommand) => {
+                    bdk_cli::handle_key_subcommand(wallet.network(), key_subcommand)
+                }
+            };
+
+            let res = res
                 .map(|json| json.to_string())
                 .map_err(|e| format!("{:?}", e))?;
 
@@ -143,12 +178,18 @@ pub fn compile(policy: String, aliases: String, script_type: String) -> Promise 
             .map(|(k, v)| (k, v.into_key()))
             .collect();
 
-        let policy = Concrete::<String>::from_str(&policy).map_err(|e| format!("{:?}", e))?;
+        macro_rules! err_str {
+            ($e:expr) => {
+                $e.map_err(|e| format!("{:?}", e))
+            };
+        }
+
+        let policy = err_str!(Concrete::<String>::from_str(&policy))?;
 
         let descriptor = match script_type.as_str() {
-            "sh" => Descriptor::Sh(policy.compile().map_err(|e| format!("{:?}", e))?),
-            "wsh" => Descriptor::Wsh(policy.compile().map_err(|e| format!("{:?}", e))?),
-            "sh-wsh" => Descriptor::ShWsh(policy.compile().map_err(|e| format!("{:?}", e))?),
+            "sh" => Descriptor::Sh(err_str!(Sh::new(err_str!(policy.compile())?))?),
+            "wsh" => Descriptor::Wsh(err_str!(Wsh::new(err_str!(policy.compile())?))?),
+            "sh-wsh" => Descriptor::Sh(err_str!(Sh::new_wsh(err_str!(policy.compile())?))?),
             _ => return Err("InvalidScriptType".into()),
         };
 

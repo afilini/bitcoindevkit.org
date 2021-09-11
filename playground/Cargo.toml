@@ -18,7 +18,8 @@ js-sys = "0.3"
 log = "0.4"
 console_log = "0.2"
 clap = "2.33"
-bdk-cli = { git = "https://github.com/bitcoindevkit/bdk-cli.git", rev = "6075869f4fd837013c5b65f57868b6b90a681de5", default-features = false, features = ["esplora", "compiler", "async-trait"] }
+structopt = "^0.3"
+bdk-cli = { git = "https://github.com/afilini/bdk-cli.git", rev = "440bc90201c46f20b2f4f5d31d7c26762212c704", default-features = false, features = ["async-interface", "async-esplora", "compiler"] }
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = { version = "^1.0" }
 
