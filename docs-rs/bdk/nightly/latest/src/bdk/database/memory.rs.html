@@ -630,6 +630,71 @@
 <span id="623">623</span>
 <span id="624">624</span>
 <span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
+<span id="650">650</span>
+<span id="651">651</span>
+<span id="652">652</span>
+<span id="653">653</span>
+<span id="654">654</span>
+<span id="655">655</span>
+<span id="656">656</span>
+<span id="657">657</span>
+<span id="658">658</span>
+<span id="659">659</span>
+<span id="660">660</span>
+<span id="661">661</span>
+<span id="662">662</span>
+<span id="663">663</span>
+<span id="664">664</span>
+<span id="665">665</span>
+<span id="666">666</span>
+<span id="667">667</span>
+<span id="668">668</span>
+<span id="669">669</span>
+<span id="670">670</span>
+<span id="671">671</span>
+<span id="672">672</span>
+<span id="673">673</span>
+<span id="674">674</span>
+<span id="675">675</span>
+<span id="676">676</span>
+<span id="677">677</span>
+<span id="678">678</span>
+<span id="679">679</span>
+<span id="680">680</span>
+<span id="681">681</span>
+<span id="682">682</span>
+<span id="683">683</span>
+<span id="684">684</span>
+<span id="685">685</span>
+<span id="686">686</span>
+<span id="687">687</span>
+<span id="688">688</span>
+<span id="689">689</span>
+<span id="690">690</span>
 </pre><pre class="rust"><code><span class="comment">// Bitcoin Dev Kit</span>
 <span class="comment">// Written in 2020 by Alekos Filini &lt;alekos.filini@gmail.com&gt;</span>
 <span class="comment">//</span>
@@ -1081,10 +1146,6 @@
 
         <span class="prelude-val">Ok</span>(<span class="kw-2">*</span><span class="ident">value</span>)
     }
-
-    <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(())
-    }
 }
 
 <span class="kw">impl</span> <span class="ident">BatchDatabase</span> <span class="kw">for</span> <span class="ident">MemoryDatabase</span> {
@@ -1118,15 +1179,23 @@
 <span class="doccomment">/// don&#39;t have `test` set.</span>
 <span class="macro">macro_rules!</span> <span class="ident">populate_test_db</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">db</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">tx_meta</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">current_height</span>:<span class="ident">expr</span>$(,)<span class="question-mark">?</span>) =&gt; {{
+        <span class="macro-nonterminal">$</span><span class="macro">crate::populate_test_db!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">db</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">tx_meta</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">current_height</span>, (@<span class="ident">coinbase</span> <span class="bool-val">false</span>))
+    }};
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">db</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">tx_meta</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">current_height</span>:<span class="ident">expr</span>, (@<span class="ident">coinbase</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">is_coinbase</span>:<span class="ident">expr</span>)$(,)<span class="question-mark">?</span>) =&gt; {{
         <span class="kw">use</span> <span class="ident">std::str::FromStr</span>;
-        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::database::BatchOperations</span>;
+        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::database::SyncTime</span>;
+        <span class="kw">use</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::database</span>::{<span class="ident">BatchOperations</span>, <span class="ident">Database</span>};
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">db</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">db</span>;
         <span class="kw">let</span> <span class="ident">tx_meta</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">tx_meta</span>;
         <span class="kw">let</span> <span class="ident">current_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">current_height</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::bitcoin::TxIn::default</span>()];
+        <span class="kw">if</span> <span class="op">!</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">is_coinbase</span> {
+            <span class="ident">input</span>[<span class="number">0</span>].<span class="ident">previous_output</span>.<span class="ident">vout</span> <span class="op">=</span> <span class="number">0</span>;
+        }
         <span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::bitcoin::Transaction</span> {
             <span class="ident">version</span>: <span class="number">1</span>,
             <span class="ident">lock_time</span>: <span class="number">0</span>,
-            <span class="ident">input</span>: <span class="macro">vec!</span>[],
+            <span class="ident">input</span>,
             <span class="ident">output</span>: <span class="ident">tx_meta</span>
                 .<span class="ident">output</span>
                 .<span class="ident">iter</span>()
@@ -1140,10 +1209,31 @@
         };
 
         <span class="kw">let</span> <span class="ident">txid</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">txid</span>();
-        <span class="kw">let</span> <span class="ident">confirmation_time</span> <span class="op">=</span> <span class="ident">tx_meta</span>.<span class="ident">min_confirmations</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">conf</span><span class="op">|</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::BlockTime</span> {
-            <span class="ident">height</span>: <span class="ident">current_height</span>.<span class="ident">unwrap</span>().<span class="ident">checked_sub</span>(<span class="ident">conf</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">timestamp</span>: <span class="number">0</span>,
-        });
+        <span class="comment">// Set Confirmation time only if current height is provided.</span>
+        <span class="comment">// panics if `tx_meta.min_confirmation` is Some, and current_height is None.</span>
+        <span class="kw">let</span> <span class="ident">confirmation_time</span> <span class="op">=</span> <span class="ident">tx_meta</span>
+            .<span class="ident">min_confirmations</span>
+            .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">v</span><span class="op">|</span> <span class="kw">if</span> <span class="ident">v</span> <span class="op">==</span> <span class="number">0</span> { <span class="prelude-val">None</span> } <span class="kw">else</span> { <span class="prelude-val">Some</span>(<span class="ident">v</span>) })
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">conf</span><span class="op">|</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::BlockTime</span> {
+                <span class="ident">height</span>: <span class="ident">current_height</span>.<span class="ident">expect</span>(<span class="string">&quot;Current height is needed for testing transaction with min-confirmation values&quot;</span>).<span class="ident">checked_sub</span>(<span class="ident">conf</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap</span>() <span class="op">+</span> <span class="number">1</span>,
+                <span class="ident">timestamp</span>: <span class="number">0</span>,
+            });
+
+        <span class="comment">// Set the database sync_time.</span>
+        <span class="comment">// Check if the current_height is less than already known sync height, apply the max</span>
+        <span class="comment">// If any of them is None, the other will be applied instead.</span>
+        <span class="comment">// If both are None, this will not be set.</span>
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">height</span>) <span class="op">=</span> <span class="ident">db</span>.<span class="ident">get_sync_time</span>().<span class="ident">unwrap</span>()
+                                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">sync_time</span><span class="op">|</span> <span class="ident">sync_time</span>.<span class="ident">block_time</span>.<span class="ident">height</span>)
+                                .<span class="ident">max</span>(<span class="ident">current_height</span>) {
+            <span class="kw">let</span> <span class="ident">sync_time</span> <span class="op">=</span> <span class="ident">SyncTime</span> {
+                <span class="ident">block_time</span>: <span class="ident">BlockTime</span> {
+                    <span class="ident">height</span>,
+                    <span class="ident">timestamp</span>: <span class="number">0</span>
+                }
+            };
+            <span class="ident">db</span>.<span class="ident">set_sync_time</span>(<span class="ident">sync_time</span>).<span class="ident">unwrap</span>();
+        }
 
         <span class="kw">let</span> <span class="ident">tx_details</span> <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">crate::TransactionDetails</span> {
             <span class="ident">transaction</span>: <span class="prelude-val">Some</span>(<span class="ident">tx</span>.<span class="ident">clone</span>()),
@@ -1253,6 +1343,46 @@
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_sync_time</span>() {
         <span class="ident"><span class="kw">crate</span>::database::test::test_sync_time</span>(<span class="ident">get_tree</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_iter_raw_txs</span>() {
+        <span class="ident"><span class="kw">crate</span>::database::test::test_iter_raw_txs</span>(<span class="ident">get_tree</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_del_path_from_script_pubkey</span>() {
+        <span class="ident"><span class="kw">crate</span>::database::test::test_del_path_from_script_pubkey</span>(<span class="ident">get_tree</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_iter_script_pubkeys</span>() {
+        <span class="ident"><span class="kw">crate</span>::database::test::test_iter_script_pubkeys</span>(<span class="ident">get_tree</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_del_utxo</span>() {
+        <span class="ident"><span class="kw">crate</span>::database::test::test_del_utxo</span>(<span class="ident">get_tree</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_del_raw_tx</span>() {
+        <span class="ident"><span class="kw">crate</span>::database::test::test_del_raw_tx</span>(<span class="ident">get_tree</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_del_tx</span>() {
+        <span class="ident"><span class="kw">crate</span>::database::test::test_del_tx</span>(<span class="ident">get_tree</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_del_last_index</span>() {
+        <span class="ident"><span class="kw">crate</span>::database::test::test_del_last_index</span>(<span class="ident">get_tree</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">test_check_descriptor_checksum</span>() {
+        <span class="ident"><span class="kw">crate</span>::database::test::test_check_descriptor_checksum</span>(<span class="ident">get_tree</span>());
     }
 }
 </code></pre></div>

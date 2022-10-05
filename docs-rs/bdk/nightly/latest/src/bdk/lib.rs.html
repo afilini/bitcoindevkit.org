@@ -289,8 +289,6 @@
 <span id="282">282</span>
 <span id="283">283</span>
 <span id="284">284</span>
-<span id="285">285</span>
-<span id="286">286</span>
 </pre><pre class="rust"><code><span class="comment">// Bitcoin Dev Kit</span>
 <span class="comment">// Written in 2020 by Alekos Filini &lt;alekos.filini@gmail.com&gt;</span>
 <span class="comment">//</span>
@@ -336,10 +334,6 @@
 <span class="doccomment">//! blockchain data and an [electrum](https://docs.rs/electrum-client/) blockchain client to</span>
 <span class="doccomment">//! interact with the bitcoin P2P network.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ```toml</span>
-<span class="doccomment">//! bdk = &quot;0.17.0&quot;</span>
-<span class="doccomment">//! ```</span>
-<span class="doccomment">//!</span>
 <span class="doccomment">//! # Examples</span>
 <span class="attribute">#![<span class="ident">cfg_attr</span>(
     <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;electrum&quot;</span>,
@@ -374,6 +368,7 @@ fn main() -&gt; Result&lt;(), bdk::Error&gt; {
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## Generate a few addresses</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! ### Example</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! use bdk::{Wallet};</span>
 <span class="doccomment">//! use bdk::database::MemoryDatabase;</span>
@@ -527,20 +522,28 @@ fn main() -&gt; Result&lt;(), bdk::Error&gt; {
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">bdk_macros</span>;
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;compact_filters&quot;</span>)]</span>
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">lazy_static</span>;
-
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rpc&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">bitcoincore_rpc</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;electrum&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">electrum_client</span>;
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;esplora&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">esplora_client</span>;
+
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;key-value-db&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">sled</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;sqlite&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">rusqlite</span>;
+
+<span class="comment">// We should consider putting this under a feature flag but we need the macro in doctests so we need</span>
+<span class="comment">// to wait until https://github.com/rust-lang/rust/issues/67295 is fixed.</span>
+<span class="comment">//</span>
+<span class="comment">// Stuff in here is too rough to document atm</span>
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">testutils</span>;
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
@@ -570,13 +573,6 @@ fn main() -&gt; Result&lt;(), bdk::Error&gt; {
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">version</span>() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span> {
     <span class="macro">env!</span>(<span class="string">&quot;CARGO_PKG_VERSION&quot;</span>, <span class="string">&quot;unknown&quot;</span>)
 }
-
-<span class="comment">// We should consider putting this under a feature flag but we need the macro in doctests so we need</span>
-<span class="comment">// to wait until https://github.com/rust-lang/rust/issues/67295 is fixed.</span>
-<span class="comment">//</span>
-<span class="comment">// Stuff in here is too rough to document atm</span>
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">testutils</span>;
 </code></pre></div>
 </section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="bdk" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0-nightly (51126be1b 2022-01-24)" ></div>
 </body></html>

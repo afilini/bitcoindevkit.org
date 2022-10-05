@@ -900,6 +900,34 @@
 <span id="893">893</span>
 <span id="894">894</span>
 <span id="895">895</span>
+<span id="896">896</span>
+<span id="897">897</span>
+<span id="898">898</span>
+<span id="899">899</span>
+<span id="900">900</span>
+<span id="901">901</span>
+<span id="902">902</span>
+<span id="903">903</span>
+<span id="904">904</span>
+<span id="905">905</span>
+<span id="906">906</span>
+<span id="907">907</span>
+<span id="908">908</span>
+<span id="909">909</span>
+<span id="910">910</span>
+<span id="911">911</span>
+<span id="912">912</span>
+<span id="913">913</span>
+<span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
+<span id="919">919</span>
+<span id="920">920</span>
+<span id="921">921</span>
+<span id="922">922</span>
+<span id="923">923</span>
 </pre><pre class="rust"><code><span class="comment">// Bitcoin Dev Kit</span>
 <span class="comment">// Written in 2020 by Alekos Filini &lt;alekos.filini@gmail.com&gt;</span>
 <span class="comment">//</span>
@@ -944,7 +972,7 @@
 <span class="kw">use</span> <span class="ident">std::marker::PhantomData</span>;
 
 <span class="kw">use</span> <span class="ident">bitcoin::util::psbt</span>::{<span class="self">self</span>, <span class="ident">PartiallySignedTransaction</span> <span class="kw">as</span> <span class="ident">Psbt</span>};
-<span class="kw">use</span> <span class="ident">bitcoin</span>::{<span class="ident">OutPoint</span>, <span class="ident">Script</span>, <span class="ident">SigHashType</span>, <span class="ident">Transaction</span>};
+<span class="kw">use</span> <span class="ident">bitcoin</span>::{<span class="ident">OutPoint</span>, <span class="ident">Script</span>, <span class="ident">Transaction</span>};
 
 <span class="kw">use</span> <span class="ident">miniscript::descriptor::DescriptorTrait</span>;
 
@@ -1005,10 +1033,7 @@
 <span class="doccomment">///     builder.finish()?</span>
 <span class="doccomment">/// };</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// assert_eq!(</span>
-<span class="doccomment">///     psbt1.global.unsigned_tx.output[..2],</span>
-<span class="doccomment">///     psbt2.global.unsigned_tx.output[..2]</span>
-<span class="doccomment">/// );</span>
+<span class="doccomment">/// assert_eq!(psbt1.unsigned_tx.output[..2], psbt2.unsigned_tx.output[..2]);</span>
 <span class="doccomment">/// # Ok::&lt;(), bdk::Error&gt;(())</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">///</span>
@@ -1042,7 +1067,7 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">utxos</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">WeightedUtxo</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">unspendable</span>: <span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">OutPoint</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">manually_selected_only</span>: <span class="ident">bool</span>,
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">sighash</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">SigHashType</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">sighash</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">psbt::PsbtSighashType</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">ordering</span>: <span class="ident">TxOrdering</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">locktime</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">rbf</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RbfValue</span><span class="op">&gt;</span>,
@@ -1052,6 +1077,8 @@
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">add_global_xpubs</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">include_output_redeem_witness_script</span>: <span class="ident">bool</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">bumping_fee</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">PreviousFee</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">current_height</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u32</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">allow_dust</span>: <span class="ident">bool</span>,
 }
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
@@ -1239,8 +1266,9 @@
     <span class="doccomment">/// 1. The `psbt_input` does not contain a `witness_utxo` or `non_witness_utxo`.</span>
     <span class="doccomment">/// 2. The data in `non_witness_utxo` does not match what is in `outpoint`.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note unless you set [`only_witness_utxo`] any `psbt_input` you pass to this method must</span>
-    <span class="doccomment">/// have `non_witness_utxo` set otherwise you will get an error when [`finish`] is called.</span>
+    <span class="doccomment">/// Note unless you set [`only_witness_utxo`] any non-taproot `psbt_input` you pass to this</span>
+    <span class="doccomment">/// method must have `non_witness_utxo` set otherwise you will get an error when [`finish`]</span>
+    <span class="doccomment">/// is called.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`only_witness_utxo`]: Self::only_witness_utxo</span>
     <span class="doccomment">/// [`finish`]: Self::finish</span>
@@ -1314,7 +1342,7 @@
     <span class="doccomment">/// Sign with a specific sig hash</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// **Use this option very carefully**</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sighash</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">sighash</span>: <span class="ident">SigHashType</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sighash</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">sighash</span>: <span class="ident">psbt::PsbtSighashType</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">params</span>.<span class="ident">sighash</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">sighash</span>);
         <span class="self">self</span>
     }
@@ -1419,7 +1447,7 @@
         }
     }
 
-    <span class="doccomment">/// Finish the building the transaction.</span>
+    <span class="doccomment">/// Finish building the transaction.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns the [`BIP174`] &quot;PSBT&quot; and summary details about the transaction.</span>
     <span class="doccomment">///</span>
@@ -1445,6 +1473,30 @@
     <span class="doccomment">/// be a valid nSequence to signal RBF.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">enable_rbf_with_sequence</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">nsequence</span>: <span class="ident">u32</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">params</span>.<span class="ident">rbf</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">RbfValue::Value</span>(<span class="ident">nsequence</span>));
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Set the current blockchain height.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This will be used to:</span>
+    <span class="doccomment">/// 1. Set the nLockTime for preventing fee sniping.</span>
+    <span class="doccomment">/// **Note**: This will be ignored if you manually specify a nlocktime using [`TxBuilder::nlocktime`].</span>
+    <span class="doccomment">/// 2. Decide whether coinbase outputs are mature or not. If the coinbase outputs are not</span>
+    <span class="doccomment">///    mature at `current_height`, we ignore them in the coin selection.</span>
+    <span class="doccomment">///    If you want to create a transaction that spends immature coinbase inputs, manually</span>
+    <span class="doccomment">///    add them using [`TxBuilder::add_utxos`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// In both cases, if you don&#39;t provide a current height, we use the last sync height.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">current_height</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">height</span>: <span class="ident">u32</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">params</span>.<span class="ident">current_height</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">height</span>);
+        <span class="self">self</span>
+    }
+
+    <span class="doccomment">/// Set whether or not the dust limit is checked.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// **Note**: by avoiding a dust limit check you may end up with a transaction that is non-standard.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">allow_dust</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">allow_dust</span>: <span class="ident">bool</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">params</span>.<span class="ident">allow_dust</span> <span class="op">=</span> <span class="ident">allow_dust</span>;
         <span class="self">self</span>
     }
 }
@@ -1478,6 +1530,9 @@
     <span class="doccomment">/// difference is that it is valid to use `drain_to` without setting any ordinary recipients</span>
     <span class="doccomment">/// with [`add_recipient`] (but it is perfectly fine to add recipients as well).</span>
     <span class="doccomment">///</span>
+    <span class="doccomment">/// If you choose not to set any recipients, you should either provide the utxos that the</span>
+    <span class="doccomment">/// transaction should spend via [`add_utxos`], or set [`drain_wallet`] to spend all of them.</span>
+    <span class="doccomment">///</span>
     <span class="doccomment">/// When bumping the fees of a transaction made with this option, you probably want to</span>
     <span class="doccomment">/// use [`allow_shrinking`] to allow this output to be reduced to pay for the extra fees.</span>
     <span class="doccomment">///</span>
@@ -1508,6 +1563,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [`allow_shrinking`]: Self::allow_shrinking</span>
     <span class="doccomment">/// [`add_recipient`]: Self::add_recipient</span>
+    <span class="doccomment">/// [`add_utxos`]: Self::add_utxos</span>
     <span class="doccomment">/// [`drain_wallet`]: Self::drain_wallet</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">drain_to</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">script_pubkey</span>: <span class="ident">Script</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">params</span>.<span class="ident">drain_to</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">script_pubkey</span>);
@@ -1517,7 +1573,7 @@
 
 <span class="comment">// methods supported only by bump_fee</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">D</span>: <span class="ident">BatchDatabase</span><span class="op">&gt;</span> <span class="ident">TxBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">D</span>, <span class="ident">DefaultCoinSelectionAlgorithm</span>, <span class="ident">BumpFee</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// Explicitly tells the wallet that it is allowed to reduce the fee of the output matching this</span>
+    <span class="doccomment">/// Explicitly tells the wallet that it is allowed to reduce the amount of the output matching this</span>
     <span class="doccomment">/// `script_pubkey` in order to bump the transaction fee. Without specifying this the wallet</span>
     <span class="doccomment">/// will attempt to find a change output to shrink instead.</span>
     <span class="doccomment">///</span>
